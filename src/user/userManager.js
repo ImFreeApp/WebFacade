@@ -1,7 +1,4 @@
-var util = require('util');
 var request = require('request-promise');
-
-
 var userServiceUrl = process.env.USER_SERVICES_URL;
 
 module.exports = {
@@ -19,11 +16,19 @@ module.exports = {
   },
 
   getUser: function(uid){
-    return request.get( util.format('%s/api/user/%s', userServiceUrl, uid) );
+    return request.get({
+      baseUrl: userServiceUrl,
+      url: '/api/user/' + uid,
+      json: true
+    });
   },
 
   getUsers: function(){
-    return request.get(userServiceUrl + '/api/user');
+    return request.get({
+      baseUrl: userServiceUrl,
+      url: '/api/user',
+      json: true
+    });
   },
 
 };
