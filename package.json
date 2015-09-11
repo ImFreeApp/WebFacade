@@ -16,6 +16,6 @@
     "express": "^4.13.3",
     "morgan": "^1.6.1",
     "passport": "^0.3.0",
-    "request": "^2.61.0"
+    "request-promise": "^0.4.3"
   }
 }

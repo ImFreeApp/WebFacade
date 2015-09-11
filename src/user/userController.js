@@ -1,8 +1,7 @@
 var util = require('util');
-var bluebird = require('bluebird');
-var request = require('request');
+var userManager = require('./userManager');
 
-var userServiceUrl = process.env.USER_SERVICES_URL || 'http://localhost:3002';
+var userServiceUrl = process.env.USER_SERVICES_URL;
 
 module.exports = {
 
