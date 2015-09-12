@@ -9,6 +9,7 @@ passport.use( new FacebookStrategy({
     callbackURL: util.format('http://localhost:%d/api/auth/facebook/callback', process.env.PORT),
     enableProof: false
   }, function(accessToken, refreshToken, profile, done) {
+    // console.log('PROFILE:', profile);
     userManager.findOrCreateUser(profile, accessToken)
       .then(function(userData){
         // return userData to client
@@ -38,7 +39,9 @@ module.exports = function(router){
 
   router.use(passport.initialize());
 
-  router.get('/', passport.authenticate('facebook') );
+  router.get('/', passport.authenticate('facebook', {
+    scope: ['user_likes', 'user_location', 'user_posts']
+  }) );
 
   router.get('/facebook/callback', passport.authenticate('facebook', {
     // failureRedirect: 'http://localhost:9000',
@@ -48,7 +51,7 @@ module.exports = function(router){
   }), function(req, res, next) {
     var user = req.user;
     // FB authentication successful
-    console.log('login successful');
+    console.log('login successful: user');
     res.redirect(process.env.WEB_CLIENT_URL);
     next(user);
   });
