@@ -1,7 +1,9 @@
 var express = require('express');
 var app = express();
+var morgan = require('morgan');
 var cors = require('cors');
 var bodyParser = require('body-parser');
+require('dotenv').load();
 
 var authRouter = express.Router();
 var userRouter = express.Router();
@@ -9,7 +11,7 @@ require('./auth/authRouter')(authRouter);
 require('./user/userRouter')(userRouter);
 
 app.use(cors());
-// app.use(morgan('dev'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 app.use('/api/auth', authRouter);
