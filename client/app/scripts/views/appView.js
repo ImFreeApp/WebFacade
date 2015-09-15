@@ -6,6 +6,28 @@ var FooterView = require('./footerView');
 var PageView = require('./pageView');
 
 module.exports = Backbone.View.extend({
+
+  el: '#app',
+
+  initialize: function (){
+    this.headerView = new HeaderView({ model: this.model });
+    this.footerView = new FooterView({ model: this.model });
+
+    // render view
+    this.render();
+
+    // calcaulte size of page on load and recaculate on resize
+    this.calculateSize();
+    $(window).on('resize', this.calculateSize.bind(this));
+    $(window).on('scroll', _.throttle(this.pageScroll.bind(this), 30));
+
+    // set up event listener for page chagne
+    this.listenTo(this.model, 'change:currentPage', this.changePage);
+
+    // simulate pageScroll to initialize first page
+    this.pageScroll();
+  },
+
   template: require('../templates/app.hbs'),
 
   pageTemplates: [
@@ -34,32 +56,6 @@ module.exports = Backbone.View.extend({
       backgroundColor: '#967DB3'
     },
   ],
-
-  id: 'app',
-
-  events: {},
-
-  initialize: function (){
-    // console.log('asdfasdf')
-    // render headerView, footerView, and bodyView
-    this.headerView = new HeaderView({ model: this.model });
-    this.footerView = new FooterView({ model: this.model });
-    $('body').append( this.headerView.render() );
-    $('body').append( this.render() );
-    $('body').append( this.footerView.render() );
-
-    // build pageModels and pageViews
-    this.pageViews = this.pageTemplates.map(this.generatePage, this);
-
-    this.calculateSize();
-
-    $(window).on('resize', this.calculateSize.bind(this));
-    $(window).on('scroll', _.throttle(this.pageScroll.bind(this), 30));
-    this.listenTo(this.model, 'change:currentPage', this.changePage);
-
-    // simulate pageScroll to initialize first page
-    this.pageScroll();
-  },
 
   calculateSize: function(){
     this.DIMENSIONS = {};
@@ -116,18 +112,27 @@ module.exports = Backbone.View.extend({
   },
 
   render: function () {
+    // render app template
     this.$el.html( this.template(this.model.toJSON()) );
+
+    // render header and footer
+    this.headerView.render();
+    this.footerView.render();
+
+    // render each page
+    this.pageViews = this.pageTemplates.map(generatePage, this);
+
+    function generatePage(pageData, idx){
+      var page = this.model.pages.add({ pageNumber: idx }),
+          pageView = new PageView({ model: page });
+
+      _.extend(pageView, pageData);
+
+      this.$el.find('.page-container').append(pageView.render());
+      return pageView;
+    };
+
     return this.$el;
-  },
-
-  generatePage: function(pageData, idx){
-    var page = this.model.pages.add({ pageNumber: idx }),
-        pageView = new PageView({ model: page });
-
-    _.extend(pageView, pageData);
-
-    this.$el.find('.page-container').append(pageView.render());
-    return pageView;
   }
 
 });

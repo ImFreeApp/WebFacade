@@ -2,11 +2,9 @@ var Backbone = require('backbone');
 
 module.exports = Backbone.View.extend({
 
+  el: 'header',
+
   template: require('../templates/header.hbs'),
-
-  tagName: 'header',
-
-  className: 'animate',
 
   initialize: function () {
     this.listenTo(this.model, 'change:user', this.render);
