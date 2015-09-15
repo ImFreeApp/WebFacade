@@ -6,7 +6,7 @@ module.exports = Backbone.Model.extend({
   initialize: function() {
     this.pages = new Pages();
     this.set('org', 'Adequate Design Studios');
-    this.set('user', 'Horatio');
+    this.set('user', null);
 
     // fraction of the window size to trigger page breakpoint
       // 0: top; 0.5: middle; 1: bottom

@@ -30,6 +30,7 @@ module.exports = Backbone.View.extend({
 
   template: require('../templates/app.hbs'),
 
+  //TODO: load all page templates, possibly w/ https://www.npmjs.com/package/require-globify
   pageTemplates: [
     {
       template: require('../templates/pages/page0.hbs'),

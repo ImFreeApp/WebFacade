@@ -1,9 +1,13 @@
 <div class="row">
   <div class="columns col12">
     <ul class="no-bullet">
-      <li class="title animate"><a href="#">Deck</a></li>
+      <li class="title animate">What is Our Project Named?</li>
       <ul class="menu no-bullet">
-        <li class="animate"><a href="#">{{ user }}</a></li>
+        {{#if user}}
+          <li class="animate"><a href="#">{{ user }}</a></li>
+        {{else}}
+          <li class="animate"><a href="#">login</a></li>
+        {{/if}}
       </ul>
     </ul>
   </div>

@@ -91,12 +91,14 @@ header {
     line-height: 1rem;
   }
   header .title {
-    font-size: 3rem;
+    // font-size: 2rem;
     float: left;
     letter-spacing: 4px;
+    color: transparent;
   }
   header.active .title {
     font-size: 1.4rem;
+    color: black;
   }
   header .menu {
     float: right;
