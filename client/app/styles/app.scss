@@ -1,0 +1,195 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@import 'palette';
+
+body {
+  font-family: "Lato", sans-serif;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: $bg;
+}
+
+
+/*******************/
+/* Helpers */
+/*******************/
+.v-align-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.v-height-full {
+  height: 100%;
+}
+.animate {
+  transition: all 0.2s;
+}
+.keyline-left { border-left: 1px solid $quiet; }
+.keyline-right { border-right: 1px solid $quiet; }
+.keyline-top { border-top: 1px solid $quiet; }
+.keyline-bottom { border-bottom: 1px solid $quiet; }
+.keyline-all { border: 1px solid $quiet; }
+
+
+/*******************/
+/* Inline Elements */
+/*******************/
+a {
+  text-decoration: none;
+  color: $link;
+  }
+  a:hover {
+    color: $link-hover;
+    text-decoration: underline;
+  }
+
+.quiet { color: $quiet; }
+
+
+/*******************/
+/* Block Elements */
+/*******************/
+h1,h2,h3 {
+  font-weight: 200;
+}
+
+p {
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 200;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+
+/***************/
+/* Project CSS */
+/***************/
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: transparent;
+  font-weight: 200;
+  z-index: 1;
+  padding: 18px 0;
+  }
+  header:hover,
+  header.active {
+    background-color: #FAFAFA;
+    border-bottom: 1px solid #AAA;
+    opacity: 1;
+  }
+  header.active {
+    padding: 0;
+  }
+  header .title,
+  header .menu{
+    padding: 1rem 0;
+    margin: 0;
+    line-height: 1rem;
+  }
+  header .title {
+    font-size: 3rem;
+    float: left;
+    letter-spacing: 4px;
+  }
+  header.active .title {
+    font-size: 1.4rem;
+  }
+  header .menu {
+    float: right;
+    letter-spacing: 1px;
+  }
+  header li {
+    float: left;
+    padding-left:12px;
+  }
+  header li a {
+    color: #FFF;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+  }
+  header.active li a,
+  header:hover li a{
+    color: #333;
+    text-shadow: none;
+  }
+
+#app {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  background-color: #FAFAFA;
+}
+
+.page-container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  }
+  .page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*transition: opacity 0.6s ease;*/
+  }
+  .page h2 {
+    color: #EEE;
+    font-size: 10rem;
+    font-weight: 100;
+    letter-spacing: 14px;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+  }
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 62px;
+  background-color: #EEE;
+  font-size: 0.6rem;
+  line-height: 0.8rem;
+  padding: 4px 0;
+  border-top: 1px solid #CCC;
+  z-index: 1;
+  opacity: 0.6;
+  }
+  footer .row {
+    height: 100%;
+  }
+  footer .columns {
+    /* v-align-center */
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  footer ul { opacity: 0; }
+  footer a {
+    color: #888;
+  }
+  footer.active,
+  footer:hover {
+    opacity: 1;
+  }
+  footer:hover {
+    height: 94px;
+  }
+  footer:hover ul {
+    margin-bottom: 0;
+    opacity: 1;
+  }
+
+
+/*******************/
+/* Pages */
+/*******************/
+.page.pageNumber-0 {
+  background-image: url('../images/alberto-korda.jpg');
+  background-size: cover;
+  background-position: 50% 14%;
+  }
+

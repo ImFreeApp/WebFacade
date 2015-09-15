@@ -1,5 +1,6 @@
 require('dotenv').load();
 var express = require('express');
+var path = require('path');
 var app = express();
 var morgan = require('morgan');
 var cors = require('cors');
@@ -10,13 +11,13 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-// initialize and set up routers
+// initialize routers and set up routes
 var authRouter = express.Router();
 var userRouter = express.Router();
 require('./auth/authRouter')(authRouter);
 require('./user/userRouter')(userRouter);
 
-app.use('/', express.static(__dirname + '/client'));
+app.use('/', express.static(path.join(__dirname, '../client/build/')));
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 
