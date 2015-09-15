@@ -118,6 +118,9 @@ gulp.task('gh-pages', function(){
 /****************************************************/
 gulp.task('build', ['browserify', 'sass', 'images', 'move']);
 
+// watch build
+gulp.task('wbuild', ['dev', 'build', 'watch']);
+
 gulp.task('default', ['dev', 'build', 'serve', 'watch']);
 
 gulp.task('deploy', ['production', 'build', 'gh-pages']);
