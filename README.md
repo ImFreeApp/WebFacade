@@ -26,9 +26,13 @@ Make sure mongo is running and run `node server/server.js`.
 
 ### Server Routes
 
-## POST /api/auth
+## GET /api/auth/login
 
 authorize user via Facebook using Passport middleware
+
+## POST /api/auth/logout
+
+log out the currently logged in user
 
 ## GET /api/users
 

@@ -1,4 +1,5 @@
 var Backbone = require('backbone');
+var $ = require('jquery');
 var Cookies = require('js-cookie');
 
 module.exports = Backbone.Model.extend({
@@ -9,13 +10,16 @@ module.exports = Backbone.Model.extend({
 
   logOut: function(){
     // delete session on server
-    // $.post()
+    // $.post('/api/auth/logout', null, function(data, status, jqXHR){
+
+    // });
 
     // delete cookie on client
     Cookies.remove('username');
+    Cookies.remove('connect.sid');
 
     // modify user model
-    this.set('username', null)
+    this.set('username', null);
   }
 
 });

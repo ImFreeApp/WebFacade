@@ -8,7 +8,6 @@ passport.use( new FacebookStrategy({
     callbackURL: '/api/auth/facebook/callback',
     enableProof: false
   }, function(accessToken, refreshToken, profile, done) {
-    // console.log('PROFILE:', profile);
     userManager.findOrCreateUser(profile, accessToken)
       .then(function(userData){
         // return userData to client
@@ -29,7 +28,7 @@ passport.deserializeUser(function(id, done) {
   userManager.findOrCreateUser({ id: id })
     .then(function(userData){
       console.log('success deserializing user:', userData);
-      done(null, userData.fbId);
+      done(null, userData);
     }).catch(function(err){
       console.log('err deserializing user:', err.message);
       done(err);
@@ -39,11 +38,17 @@ passport.deserializeUser(function(id, done) {
 module.exports = function(router){
 
   router.use(passport.initialize());
-  router.use(passport.session());
+  // router.use(passport.session());
 
-  router.get('/', passport.authenticate('facebook', {
+  router.get('/login', passport.authenticate('facebook', {
     scope: ['user_likes', 'user_location', 'user_posts']
   }) );
+
+  router.get('/logout', function(req, res, next){
+    req.session.destroy();
+    req.logout();
+    res.redirect('/');
+  });
 
   router.get('/facebook/callback', passport.authenticate('facebook', {
     failureRedirect: '/',
@@ -53,10 +58,15 @@ module.exports = function(router){
   }), function(req, res, next) {
     var user = req.user;
     // FB authentication successful
-    console.log('LOGIN successful: user', user.displayName);
+    console.log('LOGIN successful for user', user.displayName);
     res.cookie('username', user.displayName, { maxAge: 900000 });
-    res.redirect('/');
-    next();
+    // res.redirect('/');
+    // next();
+    req.login(user, function(err){
+      if(err){ return next(err); }
+      res.redirect('/');
+      next();
+    })
   });
 
 };
