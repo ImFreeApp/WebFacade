@@ -26,6 +26,10 @@ Make sure mongo is running and run `node server/server.js`.
 
 ### Server Routes
 
+## POST /api/auth
+
+authorize user via Facebook using Passport middleware
+
 ## GET /api/users
 
 get all users

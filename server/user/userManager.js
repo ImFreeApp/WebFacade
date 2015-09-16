@@ -4,11 +4,12 @@ var userServiceUrl = process.env.USER_SERVICES_URL;
 module.exports = {
 
   findOrCreateUser: function(profile, accessToken){
+    // TODO: userServices should not depend on accessToken
     return request.post({
       baseUrl: userServiceUrl,
       url: '/api/user',
       body: {
-        "token": accessToken,
+        "token": accessToken || "none",
         "userData": profile
       },
       json: true

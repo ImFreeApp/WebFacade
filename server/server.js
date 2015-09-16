@@ -5,11 +5,19 @@ var app = express();
 var morgan = require('morgan');
 var cors = require('cors');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
 
 // initialize middleware
 app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(cookieParser(process.env.SESSION_SECRET));
 
 // initialize routers and set up routes
 var authRouter = express.Router();

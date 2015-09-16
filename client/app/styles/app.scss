@@ -91,12 +91,13 @@ header {
     line-height: 1rem;
   }
   header .title {
-    // font-size: 2rem;
+    font-size: 2rem;
     float: left;
     letter-spacing: 4px;
-    color: transparent;
+    color: white;
   }
-  header.active .title {
+  header.active .title,
+  header:hover .title {
     font-size: 1.4rem;
     color: black;
   }
@@ -111,6 +112,9 @@ header {
   header li a {
     color: #FFF;
     text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.6);
+  }
+  header li a:focus {
+    color: #CCC;
   }
   header.active li a,
   header:hover li a{

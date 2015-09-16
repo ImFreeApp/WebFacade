@@ -1,12 +1,11 @@
 var userManager = require('../user/userManager');
 var passport = require('passport');
-var util = require('util');
 var FacebookStrategy = require('passport-facebook');
 
 passport.use( new FacebookStrategy({
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: util.format('http://localhost:%d/api/auth/facebook/callback', process.env.PORT),
+    callbackURL: '/api/auth/facebook/callback',
     enableProof: false
   }, function(accessToken, refreshToken, profile, done) {
     // console.log('PROFILE:', profile);
@@ -27,10 +26,12 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(id, done) {
   console.log('deserializeUser', id);
-  userManager.findOrCreateUser(profile, null)
+  userManager.findOrCreateUser({ id: id })
     .then(function(userData){
+      console.log('success deserializing user:', userData);
       done(null, userData.fbId);
     }).catch(function(err){
+      console.log('err deserializing user:', err.message);
       done(err);
     });
 });
@@ -38,22 +39,24 @@ passport.deserializeUser(function(id, done) {
 module.exports = function(router){
 
   router.use(passport.initialize());
+  router.use(passport.session());
 
   router.get('/', passport.authenticate('facebook', {
     scope: ['user_likes', 'user_location', 'user_posts']
   }) );
 
   router.get('/facebook/callback', passport.authenticate('facebook', {
-    // failureRedirect: 'http://localhost:9000',
-    // successRedirect: 'http://localhost:9000',
+    failureRedirect: '/',
+    // successRedirect: '/',
     // failureFlash: true, //TODO: add flash capabilities via connect-flash middleware
     // successFlash: 'Login Successful. Velkommen.'
   }), function(req, res, next) {
     var user = req.user;
     // FB authentication successful
-    console.log('login successful: user');
-    res.redirect(process.env.WEB_CLIENT_URL);
-    next(user);
+    console.log('LOGIN successful: user', user.displayName);
+    res.cookie('username', user.displayName, { maxAge: 900000 });
+    res.redirect('/');
+    next();
   });
 
 };
