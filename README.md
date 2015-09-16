@@ -2,17 +2,33 @@
 
 A simple server acting as middle man between the web client and backend services.
 
+To keep things modular, Client and Server are maintained as two separate modules, each with their own npm dependencies and test suites.
+
 ### Setup
-```
+```bash
+# install server dependencies
 npm install
+
+# create .env file based on .env sample
+cp .env-sample .env
+
+# build client with dependencies
+cd client/
+npm install
+gulp build
 ```
-create a `.env` file following the format in `.env-sample`
+
 
 ### Development
 
-Make sure mongo is running and run `node src/server.js`.
+Make sure mongo is running and run `node server/server.js`.
 
-### Routes
+
+### Server Routes
+
+## POST /api/auth
+
+authorize user via Facebook using Passport middleware
 
 ## GET /api/users
 
