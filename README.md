@@ -26,9 +26,13 @@ Make sure mongo is running and run `node server/server.js`.
 
 ### Server Routes
 
-## POST /api/auth
+## GET /api/auth/login
 
 authorize user via Facebook using Passport middleware
+
+## GET /api/auth/logout
+
+log out and end passport session
 
 ## GET /api/users
 
@@ -37,3 +41,16 @@ get all users
 ## GET /api/users/:id
 
 get user with :id
+
+
+## Notes
+
+### template rendering
+
+Handlebar template rendering can happen in one of three ways
+
+* precompiled at deployment using browserify w/ hbsfy, for static resources that don't change.  to precompile, run `gulp build`.
+
+* server side at request time using express-handlebars, for dynamic content that changes no more than once per page, like username and flash messages.
+
+* client side at any time using handlebars, for dynamic content that changes multiple times on the page, like user dashboard tooltips. *(not currently implemented)*

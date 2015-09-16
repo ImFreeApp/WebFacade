@@ -8,9 +8,6 @@ module.exports = Backbone.Model.extend({
   },
 
   logOut: function(){
-    // delete session on server
-    // $.post()
-
     // delete cookie on client
     Cookies.remove('username');
 
