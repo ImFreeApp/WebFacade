@@ -1,7 +1,10 @@
 var Backbone = require('backbone');
+var Cookies = require('js-cookie');
 
 module.exports = Backbone.Model.extend({
 
-  initialize: function() {},
+  initialize: function() {
+    this.set('username', Cookies.get('username'));
+  },
 
 });
