@@ -6,6 +6,10 @@ module.exports = Backbone.View.extend({
 
   template: require('../templates/header.hbs'),
 
+  events: {
+    'click .logout': 'logOut'
+  },
+
   initialize: function () {
     // headerView listens to two models.  If this turns out to be too hacky, refactor .menu dropdown into it's own view
     this.listenTo(this.model.user, 'change:username', this.render);
@@ -19,6 +23,10 @@ module.exports = Backbone.View.extend({
 
   hide: function(){
     this.$el.removeClass('active');
+  },
+
+  logOut: function(){
+    this.model.user.logOut();
   },
 
   render: function () {
