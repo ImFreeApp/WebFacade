@@ -43,6 +43,13 @@ get all users
 get user with :id
 
 
+### Editing Content
+
+All website content is rendered from precompiled Handlebar templates located in `client/app/scripts/templates`.  Each page template has it's model attributes available as variables.
+
+To spin up an interactive, live-reloading build environment, run `gulp` from within the `client` directory.
+
+
 ## Notes
 
 ### template rendering
